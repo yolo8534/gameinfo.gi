@@ -104,10 +104,10 @@ GameInfo
     RenderSystem
     {
         GraphicsPipelineLibrary               "1"
-        IndexBufferPoolSizeMB                 "256"
+        IndexBufferPoolSizeMB                 "128"
         LowLatency                            "0"
-        MinStreamingPoolSizeMB                "512"
-        MinStreamingPoolSizeMBTools           "512"
+        MinStreamingPoolSizeMB                "2048"
+        MinStreamingPoolSizeMBTools           "2048"
         SwapChainSampleableDepth              "1"
         Use32BitDepthBuffer                   "0"
         Use32BitDepthBufferWithoutStencil     "0"
@@ -123,7 +123,7 @@ GameInfo
         VulkanSteamAppShaderCache             "1"
         VulkanSteamDownloadedShaderCache      "1"
         VulkanSteamShaderCache                "1"
-        MaxPreloadTextureResolution           "128"
+        MaxPreloadTextureResolution           "0"
         AllowPartialMipChainImmediateTexLoads "1"
     }
 
@@ -141,7 +141,7 @@ GameInfo
         RenderingPipeline
         {
             SupportsMSAA  "0"
-            DistanceField "0"
+            DistanceField "1"
         }
         PauseSinglePlayerOnGameOverlay "1"
         PauseOnCtrlConsole             "0"
@@ -177,7 +177,7 @@ GameInfo
 
     pulse
     {
-        pulse_enabled "0"
+        pulse_enabled "1"
     }
 
     Hammer
@@ -188,21 +188,21 @@ GameInfo
         DefaultPointEntity            "info_player_start"
         NavMarkupEntity               "func_nav_markup"
         OverlayBoxSize                "8"
-        TileMeshesEnabled             "0"
+        TileMeshesEnabled             "1"
         RenderMode                    "ToolsVis"
-        CreateRenderClusters          "0"
-        DefaultMinDrawVolumeSize      "4096"
-        DefaultMinTrianglesPerCluster "32768"
-        TileGridSupportsBlendHeight   "0"
+        CreateRenderClusters          "1"
+        DefaultMinDrawVolumeSize      "2048"
+        DefaultMinTrianglesPerCluster "16384"
+        TileGridSupportsBlendHeight   "1"
         TileGridBlendDefaultColor     "0 255 0"
         LoadScriptEntities            "0"
         UsesBakedLighting             "1"
         UseAnalyticGrid               "0"
         SupportsDisplacementMapping   "0"
-        SteamAudioEnabled             "0"
-        LatticeDeformerEnabled        "0"
-        ShadowAtlasWidth              "512"
-        ShadowAtlasHeight             "512"
+        SteamAudioEnabled             "1"
+        LatticeDeformerEnabled        "1"
+        ShadowAtlasWidth              "16384"
+        ShadowAtlasHeight             "16384"
         TimeSlicedShadowMapRendering  "1"
     }
 
@@ -242,7 +242,7 @@ GameInfo
             nav           "1"
             sareverb      "0"
             sapaths       "0"
-            sacustomdata  "0"
+            sacustomdata  "1"
         }
 
         GameSpecificPostMapBuildSteps
@@ -265,31 +265,31 @@ GameInfo
         WorldRendererBuilder
         {
             VisibilityGuidedMeshClustering             "1"
-            MinimumTrianglesPerClusteredMesh           "16384"
-            MinimumVerticesPerClusteredMesh            "16384"
-            MinimumVolumePerClusteredMesh              "16384"
-            MaxPrecomputedVisClusterMembership         "32"
-            MaxCullingBoundsGroups                     "64"
+            MinimumTrianglesPerClusteredMesh           "8192"
+            MinimumVerticesPerClusteredMesh            "8192"
+            MinimumVolumePerClusteredMesh              "8192"
+            MaxPrecomputedVisClusterMembership         "96"
+            MaxCullingBoundsGroups                     "128"
             UseAggregateInstances                      "1"
             AggregateInstancingMeshlets                "1"
-            BakePropsWithExtraVertexStreams            "0"
+            BakePropsWithExtraVertexStreams            "1"
             MergeTranslucents                          "1"
-            BakePrecomputedShadows                     "0"
+            BakePrecomputedShadows                     "1"
             BakePrecomputedShadowsForDirectionalLights "0"
             BakePrecomputedDepthPyramids               "0"
-            PrecomputedShadowmapAtlas                  "0"
-            PrecomputedShadowmapAtlasBorder            "0"
+            PrecomputedShadowmapAtlas                  "1"
+            PrecomputedShadowmapAtlasBorder            "1"
             PrecomputedShadowmapResolutionDefault      "0"
         }
 
         BakedLighting
         {
             Version                          "5"
-            ImportanceVolumeTransitionRegion "128"
+            ImportanceVolumeTransitionRegion "512"
             LightmapChannels
             {
                 direct_light_shadows          "1"
-                debug_chart_color             "0"
+                debug_chart_color             "1"
                 directional_irradiance_sh2_dc "1"
 
                 directional_irradiance_sh2_lum
@@ -307,59 +307,59 @@ GameInfo
             ReverbDefaults
             {
                 GridGenerationType          "0"
-                FilterUsingVolumes          "0"
+                FilterUsingVolumes          "1"
                 FilterUsingNavMesh          "0"
-                GridSpacing                 "6.0"
+                GridSpacing                 "3.0"
                 HeightAboveFloor            "1.5"
                 RebakeOption                "0"
-                NumRays                     "1024"
-                NumBounces                  "2"
-                IRDuration                  "0.2"
-                AmbisonicsOrder             "0"
+                NumRays                     "32768"
+                NumBounces                  "64"
+                IRDuration                  "1.0"
+                AmbisonicsOrder             "1"
                 ClusteringEnabled           "0"
-                ClusteringCubemapResolution "4.0"
-                ClusteringDepthThreshold    "20.0"
+                ClusteringCubemapResolution "16.0"
+                ClusteringDepthThreshold    "10.0"
             }
             PathingDefaults
             {
                 GridGenerationType "0"
-                FilterUsingVolumes "0"
+                FilterUsingVolumes "1"
                 FilterUsingNavMesh "0"
-                GridSpacing        "6.0"
+                GridSpacing        "3.0"
                 HeightAboveFloor   "1.5"
                 RebakeOption       "0"
                 NumVisSamples      "1"
                 ProbeVisRadius     "0"
                 ProbeVisThreshold  "0.1"
-                ProbeVisPathRange  "100.0"
+                ProbeVisPathRange  "1000.0"
             }
             CustomDataDefaults
             {
                 GridGenerationType         "0"
-                FilterUsingVolumes         "0"
-                FilterUsingNavMesh         "0"
-                GridSpacing                "12"
+                FilterUsingVolumes         "1"
+                FilterUsingNavMesh         "1"
+                GridSpacing                "6"
                 HeightAboveFloor           "1.5"
                 RebakeOption               "0"
                 BakeOcclusion              "0"
-                BakeDimensions             "0"
+                BakeDimensions             "1"
                 BakeMaterials              "0"
-                OcclusionPathing           "0"
+                OcclusionPathing           "1"
                 OcclusionReflection        "0"
-                OcclusionReflectionRays    "512"
-                OcclusionReflectionBounces "1"
-                DimensionsOutsideThreshold "0.05"
+                OcclusionReflectionRays    "16384"
+                OcclusionReflectionBounces "16"
+                DimensionsOutsideThreshold "0.02"
             }
             ProbeGenerationVolumeDefaults
             {
-                Spacing            "6.0"
+                Spacing            "3.0"
                 Height             "1.5"
-                HeightSpacing      "24"
+                HeightSpacing      "12"
                 UseForReverb       "0"
                 UseForPathing      "0"
-                UseForCustomData   "0"
-                FilterUsingVolumes "0"
-                FilterUsingNavMesh "0"
+                UseForCustomData   "1"
+                FilterUsingVolumes "1"
+                FilterUsingNavMesh "1"
             }
         }
         SoundEventScripts
@@ -372,11 +372,11 @@ GameInfo
         }
         VisBuilder
         {
-            MaxVisClusters                     "2048"
-            PreMergeOpenSpaceDistanceThreshold "256.0"
-            PreMergeOpenSpaceMaxDimension      "4096.0"
-            PreMergeOpenSpaceMaxRatio          "12.0"
-            PreMergeSmallRegionsSizeThreshold  "50.0"
+            MaxVisClusters                     "4096"
+            PreMergeOpenSpaceDistanceThreshold "128.0"
+            PreMergeOpenSpaceMaxDimension      "2048.0"
+            PreMergeOpenSpaceMaxRatio          "8.0"
+            PreMergeSmallRegionsSizeThreshold  "20.0"
         }
 
         VDataLocalization
@@ -388,7 +388,7 @@ GameInfo
         TextureCompiler
         {
             AllowNP2Textures           "1"
-            AllowPanoramaMipGeneration "0"
+            AllowPanoramaMipGeneration "1"
         }
     }
 
@@ -400,21 +400,21 @@ GameInfo
     WorldRenderer
     {
         BindlessSceneObjectDesc      "CitadelBindlessDesc"
-        EnvironmentMapCacheSizeTools "0"
+        EnvironmentMapCacheSizeTools "2"
         EnvironmentMapColorSpace     "linear"
-        EnvironmentMapFaceSize       "32"
+        EnvironmentMapFaceSize       "256"
         EnvironmentMapFormat         "BC6H"
         EnvironmentMapMipProcessor   "GGXCubeMapBlur"
         EnvironmentMapPreviewFormat  "BC6H"
-        EnvironmentMapRenderSize     "64"
-        EnvironmentMapUseCubeArray   "0"
-        EnvironmentMaps              "0"
+        EnvironmentMapRenderSize     "1024"
+        EnvironmentMapUseCubeArray   "1"
+        EnvironmentMaps              "1"
         GrassCastsShadows            "0"
         AggregateInstanceStream      "1"
         AggregateRTProxyDesc         "1"
         AggregateSceneObjectDesc     "1"
         AggregateVertexColorStream   "1"
-        EnvironmentMapCacheSize      "256"
+        EnvironmentMapCacheSize      "1024"
         LPVEdgeBlending              "0"
     }
 
@@ -425,7 +425,7 @@ GameInfo
         DefaultShadowTextureHeight                  "0"
         DefaultShadowTextureWidth                   "0"
         DisableLateAllocatedTransformBuffer         "1"
-        DynamicShadowResolution                     "0"
+        DynamicShadowResolution                     "1"
         FogCachedShadowAtlasHeightTools             "0"
         FogCachedShadowAtlasWidthTools              "0"
         FogCachedShadowTileSizeTools                "0"
@@ -434,16 +434,16 @@ GameInfo
         GpuLightBinner                              "1"
         GpuLightBinnerSunLightFastPath              "1"
         HDRFrameBuffer                              "0"
-        LayerBatchThresholdFullsort                 "512"
-        MinimumLateAllocatedVertexCacheBufferSizeMB "128"
+        LayerBatchThresholdFullsort                 "200"
+        MinimumLateAllocatedVertexCacheBufferSizeMB "64"
         NonTexturedGradientFog                      "0"
         SunLightManagerCount                        "0"
         SunLightManagerCountTools                   "0"
-        SunLightMaxCascadeSize                      "0"
+        SunLightMaxCascadeSize                      "2"
         SunLightShadowRenderMode                    "Depth"
         Tonemapping                                 "0"
         TransformTextureRowCount                    "1024"
-        TransformTextureRowCountToolsMode           "1024"
+        TransformTextureRowCountToolsMode           "6144"
         VolumetricFog                               "0"
         CharacterDecals                             "0"
         FogCachedShadowTileMaxFilterRadius          "0"
@@ -453,7 +453,7 @@ GameInfo
         EnableViewModelSunlight                     "0"
         GpuLightBinnerSupportViewModelCascade       "0"
         HairShading                                 "false"
-        GpuLightBinnerBinEnvMaps                    "0"
+        GpuLightBinnerBinEnvMaps                    "1"
         GpuLightBinnerBinLPVs                       "0"
         LightCookieAllocGranularity                 "1"
         LightCookieMinAllocSize                     "0"
@@ -473,7 +473,7 @@ GameInfo
         WellKnownLightCookies
         {
             blank      "materials/effects/lightcookies/blank.vtex"
-            flashlight "materials/effects/lightcookies/blank.vtex"
+            flashlight "materials/effects/lightcookies/flashlight.vtex"
         }
 
         ComputeShaderSkinning "1"
@@ -481,18 +481,18 @@ GameInfo
 
     NavSystem
     {
-        NavTileSize                   "256.0"
-        NavCellSize                   "2.0"
-        NavCellHeight                 "3.0"
+        NavTileSize                   "128.0"
+        NavCellSize                   "1.5"
+        NavCellHeight                 "2.0"
         NavHullsPreset                "default"
-        NavRegionMinSize              "16"
-        NavRegionMergeSize            "40"
-        NavEdgeMaxLen                 "2400"
-        NavEdgeMaxError               "100.0"
+        NavRegionMinSize              "8"
+        NavRegionMergeSize            "20"
+        NavEdgeMaxLen                 "1200"
+        NavEdgeMaxError               "51.0"
         NavVertsPerPoly               "4"
-        NavDetailSampleDistance       "240.0"
-        NavDetailSampleMaxError       "4.0"
-        NavSmallAreaOnEdgeRemovalSize "150.0"
+        NavDetailSampleDistance       "120.0"
+        NavDetailSampleMaxError       "2.0"
+        NavSmallAreaOnEdgeRemovalSize "81.0"
     }
 
     AnimationSystem
@@ -514,7 +514,7 @@ GameInfo
         BindlessParticleShader               "1"
         EnableParticleShaderFeatureBranching "1"
         Features                             "non_homogenous_forward_layer_only"
-        Float16HDRBackBuffer                 "0"
+        Float16HDRBackBuffer                 "1"
         PET_SupportFadingOpaqueModels        "0"
         EnableMixedResolution                "1"
         MPropertyFlattenIntoParentRow        "1"
@@ -532,10 +532,29 @@ GameInfo
     ConVars
     {
         // =========================================================================
-        // 1. HILOS EN PARALELO + LATENCIA DESACTIVADA PARA NO FRENAR AL i3-10100F
+        // 1. TRANSFERENCIA CPU -> GPU POST-NURSE HARROW Y CONTROL DE FRAMETIME
         // =========================================================================
+        r_animatable_mesh_shaders                                      "1"
+        r_particle_gpu_implicit_lds_cache                              "1"
+        r_frame_sync_enable                                            "true"
+        r_citadel_gpu_culling                                          "true"
+        r_citadel_gpu_culling_two_pass                                 "true"
+        sc_aggregate_gpu_vis_culling                                   "true"
+        sc_instanced_mesh_enable                                       "true"
+        sc_instanced_mesh_gpu_density_culling                          "true"
+        sc_aggregate_render_mesh_shader                                "true"
+        sc_force_materials_batchable                                   "true"
+        r_citadel_depth_prepass_dynamic_objects                        "false"
+        r_async_compute_fog                                            "true"
+        r_vma_defrag_algorithm                                         "0"
+        engine_max_ticks_to_simulate                                   "2"
         r_low_latency                                                  "0"
         engine_low_latency_sleep_after_client_tick                     "false"
+        engine_accurate_input_processing_delta_time                    "true"
+
+        // =========================================================================
+        // 2. REPARTO PARALELO EN LOS 8 HILOS DEL i3-10100F
+        // =========================================================================
         thread_pool_option                                             "4"
         animgraph_enable_parallel_op_evaluation                        "1"
         animgraph_enable_parallel_preupdate                            "1"
@@ -555,29 +574,40 @@ GameInfo
         net_gather_child_fields_only                                   "1"
 
         // =========================================================================
-        // 2. KAIZUCHANERU + BOOT MAX FPS: RECORTE EXTREMO DE POLIGONOS Y OBJETOS
+        // 3. POOL DE TEXTURAS ASINCRONO EN VRAM (SIN FRENAZOS EN EL HILO PRINCIPAL)
         // =========================================================================
-        sc_screen_size_lod_scale_override       "0.000001"
-        sc_instanced_mesh_lod_bias              "0.001"
-        sc_instanced_mesh_lod_bias_shadow       "0.001"
-        sc_instanced_mesh_size_cull_bias        "10"
+        mat_async_shader_load                "1"
+        r_texture_nonstreaming_load          "0"
+        r_texture_pool_size                  "2048"
+        r_texture_pool_reduce_rate           "16"
+        r_texture_budget_dynamic             "1"
+        r_texture_budget_threshold           "0.9"
+        r_texture_budget_update_period       "2.0"
+        r_texture_stream_mip_bias            "3"
+        r_texture_lod_scale                  "4"
+        r_fallback_texture_lod_scale         "4"
+        r_texture_stream_max_resolution      "256"
+        r_texture_stream_resolution_bias     "0.1"
+        r_texturefilteringquality            "0"
+        r_character_decal_resolution         "4"
+        r_character_decal_monitor_render_res "4"
+        r_citadel_fsr_enable_mip_bias        "false"
+
+        // =========================================================================
+        // 4. RECORTE EXTREMO DE POLIGONOS Y DISTANCIA + LOTES ESTABLES DE VALVE
+        // =========================================================================
+        sc_screen_size_lod_scale_override       "0.25"
+        sc_instanced_mesh_lod_bias              "5"
+        sc_instanced_mesh_lod_bias_shadow       "5.5"
+        sc_instanced_mesh_size_cull_bias        "8"
         sc_instanced_mesh_size_cull_bias_shadow "10"
-        sc_fade_distance_scale_override         "180"
-        r_propsmaxdist                          "100"
-        r_size_cull_threshold                   "1.5"
+        r_size_cull_threshold                   "1.25"
+        r_propsmaxdist                          "250"
         r_farz                                  "4500"
         r_mapextents                            "4500"
-        r_citadel_gpu_culling                   "true"
-        sc_aggregate_gpu_vis_culling            "true"
-        sc_instanced_mesh_enable                "true"
-        sc_instanced_mesh_gpu_density_culling   "true"
-        sc_aggregate_render_mesh_shader         "true"
-        sc_force_materials_batchable            "true"
-        r_citadel_depth_prepass_dynamic_objects "false"
-        r_async_compute_fog                     "true"
-        sc_aggregate_bvh_threshold              "512"
-        sc_layer_batch_threshold                "512"
-        sc_layer_batch_threshold_fullsort       "512"
+        sc_aggregate_bvh_threshold              "128"
+        sc_layer_batch_threshold                "128"
+        sc_layer_batch_threshold_fullsort       "80"
         sc_allow_dithered_lod                   "false"
         sc_dithered_lod_transition_amt          "0"
         sc_instanced_mesh_motion_vectors        "0"
@@ -589,34 +619,15 @@ GameInfo
         sc_clutter_density_none_size            "1"
 
         // =========================================================================
-        // 3. MODO ROBLOX: TEXTURAS EN 64x64 + MIP BIAS 8
+        // 5. SOMBRAS, LUCES AMBIENTALES Y NIEBLA 100% DESACTIVADAS
         // =========================================================================
-        mat_async_shader_load                "1"
-        r_texture_nonstreaming_load          "0"
-        r_texture_pool_size                  "512"
-        r_texture_pool_reduce_rate           "512"
-        r_texture_budget_dynamic             "1"
-        r_texture_budget_threshold           "0.5"
-        r_texture_budget_update_period       "0.5"
-        r_texture_stream_mip_bias            "8"
-        r_texture_lod_scale                  "8"
-        r_fallback_texture_lod_scale         "8"
-        r_texture_stream_max_resolution      "64"
-        r_texture_stream_resolution_bias     "0.01"
-        r_texturefilteringquality            "0"
-        r_character_decal_resolution         "1"
-        r_character_decal_monitor_render_res "1"
-        r_citadel_fsr_enable_mip_bias        "false"
-
-        // =========================================================================
-        // 4. LUCES, SOMBRAS Y NIEBLA 100% APAGADAS
-        // =========================================================================
+        r_shadows                                              "0"
         lb_enable_stationary_lights                            "false"
         lb_enable_dynamic_lights                               "false"
         lb_enable_lights                                       "0"
         lb_enable_shadow_casting                               "0"
         lb_enable_newsum                                       "false"
-        lb_max_visible_barn_lights_override                    "0"
+        lb_max_visible_barn_lights_override                    "1"
         lb_barnlight_shadowmap_scale                           "0"
         cl_retire_low_priority_lights                          "1"
         mat_max_lighting_complexity                            "0"
@@ -624,33 +635,33 @@ GameInfo
         r_light_flickering_enabled                             "0"
         r_light_sensitivity_mode                               "true"
         r_lightmap_bicubic_filtering                           "0"
-        r_lightmap_size                                        "128"
+        r_lightmap_size                                        "512"
         r_lightmap_size_directional_irradiance                 "0"
         r_multiscattering                                      "0"
-        r_distancefield_enable                                 "0"
+        r_distancefield_enable                                 "1"
         lb_csm_cascade_size_override                           "1"
         lb_csm_draw_alpha_tested                               "0"
         lb_csm_draw_translucent                                "0"
         lb_csm_override_staticgeo_cascades                     "true"
         lb_csm_override_staticgeo_cascades_value               "true"
-        lb_dynamic_shadow_resolution_base                      "4"
+        lb_dynamic_shadow_resolution_base                      "8"
         lb_ssss_samples                                        "0"
-        lb_sun_csm_size_cull_threshold_texels                  "200"
+        lb_sun_csm_size_cull_threshold_texels                  "120"
         r_citadel_shadow_caching                               "true"
         r_citadel_shadow_quality                               "0"
-        r_citadel_shadowdb                                     "4"
+        r_citadel_shadowdb                                     "8"
         r_citadel_sun_shadow_slope_scale_depth_bias            "0"
-        r_size_cull_threshold_shadow                           "10.0"
+        r_size_cull_threshold_shadow                           "4.0"
         sparseshadowtree_disable_for_viewmodel                 "1"
         sparseshadowtree_enable_rendering                      "0"
-        sparseshadowtree_disable_add_layers                    "true"
+        sparseshadowtree_disable_add_layers                    "false"
         sparseshadowtree_leaf_precision_viewmodel              "0"
         csm_cascade0_override_dist                             "0"
         csm_cascade1_override_dist                             "0"
         csm_cascade2_override_dist                             "0"
         csm_cascade3_override_dist                             "0"
         csm_max_dist_between_caster_and_receiver               "0"
-        csm_max_num_cascades_override                          "0"
+        csm_max_num_cascades_override                          "1"
         csm_max_visible_dist                                   "0"
         csm_res_override_0                                     "1"
         csm_res_override_1                                     "1"
@@ -670,15 +681,15 @@ GameInfo
         lb_cubemap_normalization_roughness_begin               "0.01"
         lb_cubemap_normalization_max                           "1"
         lb_dynamic_shadow_penumbra                             "false"
-        lb_dynamic_shadow_resolution_quantization              "4"
+        lb_dynamic_shadow_resolution_quantization              "8"
         lb_enable_fog_mixed_shadows                            "false"
         lb_mixed_shadows                                       "false"
         lb_precomputed_shadowmap_enable                        "false"
         lb_shadow_map_cull_empty_mixed                         "true"
-        lb_shadow_texture_height_override                      "4"
-        lb_shadow_texture_width_override                       "4"
+        lb_shadow_texture_height_override                      "8"
+        lb_shadow_texture_width_override                       "8"
         sc_disable_spotlight_shadows                           "1"
-        sc_cache_envmap_lpv_lookup                             "false"
+        sc_cache_envmap_lpv_lookup                             "true"
         sc_hdr_enabled_override                                "0"
         vis_sunlight_enable                                    "false"
         r_rendersun                                            "0"
@@ -706,9 +717,10 @@ GameInfo
         volume_fog_intermediate_textures_hdr                   "false"
 
         // =========================================================================
-        // 5. FISICAS, COLISIONES E IK DESACTIVADOS
+        // 6. FISICAS, COLISIONES E IK DESACTIVADOS
         // =========================================================================
-        cl_fasttempentcollision                 "1"
+        cl_fasttempentcollision                 "5"
+        cl_impacteffects                        "0"
         cl_phys_enabled                         "true"
         cl_phys_sleep_enable                    "true"
         cl_phys_networked_start_sleep           "true"
@@ -719,7 +731,7 @@ GameInfo
         cl_bone_cache_optimization              "1"
         skeleton_instance_lod_optimization      "true"
         cl_disable_ragdolls                     "0"
-        cl_ragdoll_limit                        "-1"
+        cl_ragdoll_limit                        "0"
         cl_ragdoll_default_scale                "0"
         cloth_sim_on_tick                       "0"
         cloth_filter_transform_stateless        "0"
@@ -749,11 +761,15 @@ GameInfo
         animgraph_slowdownonslopes_enabled      "false"
 
         // =========================================================================
-        // 6. INTERFAZ PANORAMA Y TEXTO EN EL MUNDO AL MINIMO
+        // 7. INTERFAZ PANORAMA CON CACHE 4X Y RETRATOS 3D APAGADOS
         // =========================================================================
+        panorama_render_target_cache_max_size           "134217728"
         citadel_in_world_item_panel_dpi                 "0"
         citadel_portrait_world_renderer_off             "true"
         citadel_portrait_unit_ag2_enable                "false"
+        citadel_damage_text_lifetime                    "0.75"
+        citadel_damage_text_lifetime_new                "0.5"
+        citadel_damage_text_batching_window_ability     "1000"
         panorama_max_fps                                "20"
         panorama_max_overlay_fps                        "20"
         fps_max_ui                                      "20"
@@ -763,7 +779,7 @@ GameInfo
         panorama_panel_occlusion                        "true"
         panorama_disable_render_target_cache            "0"
         panorama_skip_composition_layer_content_paint   "1"
-        panorama_comp_layer_lru_lifetime                "4"
+        panorama_comp_layer_lru_lifetime                "8"
         v8_maximum_heap_size_mb                         "1024"
         r_dashboard_render_quality                      "0"
         r_citadel_enable_pano_world_blur                "false"
@@ -772,7 +788,6 @@ GameInfo
         minimap_update_rate_hz                          "5"
         citadel_minimap_overlap_scan_distance           "0"
         citadel_minimap_trooper_size                    "2"
-        citadel_damage_text_batching_window_ability     "1000"
         citadel_unit_status_healthbar_highlight_speed   "999"
         citadel_hud_objective_health_enabled            "2"
         citadel_hud_objective_health_idle_timeout       "0"
@@ -783,8 +798,10 @@ GameInfo
         cc_captiontrace                                 "0"
 
         // =========================================================================
-        // 7. PARTICULAS RECORTADAS AL EXTREMO
+        // 8. PARTICULAS: SALTAR CULLING EN CPU (200) + HOTFIX NURSE HARROW
         // =========================================================================
+        r_particle_max_size_cull                 "200"
+        r_late_particle_job_sync                 "1"
         r_citadel_disable_particle_lights        "true"
         r_particle_mixed_resolution_viewstart    "16"
         particle_cluster_use_collision_hulls     "false"
@@ -794,18 +811,16 @@ GameInfo
         cl_particle_batch_mode                   "1"
         r_particle_allowprerender                "true"
         r_particle_skip_postsim                  "true"
-        r_late_particle_job_sync                 "0"
         r_limit_particle_job_duration            "true"
         r_particle_explicit_fetch                "false"
-        r_particle_max_size_cull                 "300"
         r_particle_model_per_thread_count        "64"
         r_particle_min_timestep                  "0.005"
         r_particle_max_texture_layers            "4"
         r_particle_fixedrandomseeds              "true"
         cl_particle_fallback_base                "10"
         cl_particle_fallback_multiplier          "20"
-        cl_particle_sim_fallback_base_multiplier "200"
-        cl_particle_sim_fallback_threshold_ms    "0.1"
+        cl_particle_sim_fallback_base_multiplier "100"
+        cl_particle_sim_fallback_threshold_ms    "1"
         r_citadel_screenspace_particles_full_res "false"
         r_draw_particle_children_with_parents    "0"
         r_physics_particle_op_spawn_scale        "0"
@@ -813,7 +828,7 @@ GameInfo
         cl_max_particle_pvs_aabb_edge_length     "50"
 
         // =========================================================================
-        // 8. ARMA OCULTA Y DETALLES SECUNDARIOS APAGADOS (MANTIENE DECALS DE LASH)
+        // 9. ARMA OCULTA Y DETALLES COSMETICOS APAGADOS
         // =========================================================================
         r_aspectratio                                 "2.5"
         r_drawviewmodel                               "false"
@@ -854,14 +869,14 @@ GameInfo
         citadel_melee_shake_amplitude                 "0"
         citadel_melee_shake_duration                  "0"
         r_citadel_clip_sphere_min_opacity             "0"
-        r_max_portal_render_targets                   "0"
+        r_max_portal_render_targets                   "2"
         r_monitor_3dskybox                            "0"
         r_skip_precache_validation_check              "true"
         r_strip_invisible_during_sceneobject_update   "1"
         r_pixelvisibility_partial                     "false"
 
         // =========================================================================
-        // 9. IA Y AUDIO ULTRA RECORTADOS (2 HILOS)
+        // 10. IA Y SONIDO ASINCRONO EN 2 HILOS
         // =========================================================================
         citadel_npc_force_animate_every_tick          "false"
         cl_simulate_dormant_entities                  "false"
@@ -870,23 +885,23 @@ GameInfo
         ai_gather_conditions_async                    "true"
         ai_lod_auto_enabled                           "true"
         ai_strong_optimizations_no_checkstand         "1"
-        ai_think_interval                             "0.5"
-        ai_think_interval_lod_med                     "1.0"
-        ai_think_interval_lod_low                     "2.0"
-        ai_think_interval_lod_very_low                "4.0"
+        ai_think_interval                             "0.4"
+        ai_think_interval_lod_med                     "0.6"
+        ai_think_interval_lod_low                     "1.2"
+        ai_think_interval_lod_very_low                "2.5"
         ai_use_async_ragdoll_fixup                    "true"
         nav_obstruction_async_update                  "true"
         citadel_use_pvs_for_players                   "true"
         sv_hide_ent_in_pvs                            "1"
         sv_remove_ent_from_pvs                        "1"
         snd_steamaudio_num_threads                    "2"
-        snd_mixahead                                  "0.08"
+        snd_mixahead                                  "0.06"
         snd_mix_async                                 "1"
         snd_async_fullyasync                          "1"
         snd_occlusion_bounces                         "0"
         snd_occlusion_rays                            "0"
-        snd_steamaudio_max_occlusion_samples          "4"
-        snd_steamaudio_num_diffuse_samples            "64"
+        snd_steamaudio_max_occlusion_samples          "8"
+        snd_steamaudio_num_diffuse_samples            "128"
         snd_steamaudio_reverb_order_rendering         "0"
         snd_steamaudio_reverb_update_rate             "5"
         snd_use_baked_occlusion                       "1"
@@ -904,7 +919,7 @@ GameInfo
         panorama_joystick_enabled                     "0"
 
         // =========================================================================
-        // 10. BLOQUE OFICIAL DE RED (VALVE)
+        // 11. BLOQUE OFICIAL DE RED (VALVE)
         // =========================================================================
         rate
         {
