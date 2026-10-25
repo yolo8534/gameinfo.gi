@@ -106,8 +106,8 @@ GameInfo
         GraphicsPipelineLibrary               "1"
         IndexBufferPoolSizeMB                 "128"
         LowLatency                            "0"
-        MinStreamingPoolSizeMB                "2048"
-        MinStreamingPoolSizeMBTools           "2048"
+        MinStreamingPoolSizeMB                "1024"
+        MinStreamingPoolSizeMBTools           "1024"
         SwapChainSampleableDepth              "1"
         Use32BitDepthBuffer                   "0"
         Use32BitDepthBufferWithoutStencil     "0"
@@ -119,7 +119,7 @@ GameInfo
         VulkanOnly_Linux                      "1"
         VulkanRequireDescriptorIndexing       "1"
         VulkanRequireSubgroupWaveOpSupport    "1"
-        VulkanStagingPMBSizeLimitMB           "768"
+        VulkanStagingPMBSizeLimitMB           "512"
         VulkanSteamAppShaderCache             "1"
         VulkanSteamDownloadedShaderCache      "1"
         VulkanSteamShaderCache                "1"
@@ -160,7 +160,7 @@ GameInfo
     SoundSystem
     {
         SteamAudioEnabled   "1"
-        WaveDataCacheSizeMB "256"
+        WaveDataCacheSizeMB "128"
         UsePlatTime         "1"
     }
 
@@ -414,7 +414,7 @@ GameInfo
         AggregateRTProxyDesc         "1"
         AggregateSceneObjectDesc     "1"
         AggregateVertexColorStream   "1"
-        EnvironmentMapCacheSize      "1024"
+        EnvironmentMapCacheSize      "512"
         LPVEdgeBlending              "0"
     }
 
@@ -499,8 +499,8 @@ GameInfo
     {
         DisableServerInterpCompensation "1"
         DisableAnimationScript          "1"
-        ServerPoseRecipeHistorySize     "15"
-        ClientPoseRecipeHistorySize     "15"
+        ServerPoseRecipeHistorySize     "10"
+        ClientPoseRecipeHistorySize     "10"
     }
 
     ModelDoc
@@ -532,8 +532,10 @@ GameInfo
     ConVars
     {
         // =========================================================================
-        // 1. ELIMINAR EL BLOQUEO DEL 40% ENTRE CPU Y GPU (SINCRONIZACION APAGADA)
+        // 1. ANTI-LENTITUD EN LATE GAME (EVITA EL BUCLE DE TICKS Y DESFRAGMENTA VRAM)
         // =========================================================================
+        engine_max_ticks_to_simulate                                   "1"
+        r_vma_defrag_algorithm                                         "1"
         r_frame_sync_enable                                            "false"
         r_citadel_gpu_culling_two_pass                                 "false"
         r_citadel_gpu_culling                                          "true"
@@ -546,14 +548,12 @@ GameInfo
         sc_force_materials_batchable                                   "true"
         r_citadel_depth_prepass_dynamic_objects                        "false"
         r_async_compute_fog                                            "true"
-        r_vma_defrag_algorithm                                         "0"
-        engine_max_ticks_to_simulate                                   "4"
         r_low_latency                                                  "0"
         engine_low_latency_sleep_after_client_tick                     "false"
         engine_accurate_input_processing_delta_time                    "true"
 
         // =========================================================================
-        // 2. DESBLOQUEAR LOS 8 HILOS COMPLETOS (THREAD_POOL_OPTION 6 + MODIFIERS)
+        // 2. MULTINUCLEO EN LOS 8 HILOS DEL i3-10100F
         // =========================================================================
         thread_pool_option                                             "6"
         cl_modifier_parallel_gather_status_effect_updates              "true"
@@ -575,27 +575,27 @@ GameInfo
         net_gather_child_fields_only                                   "1"
 
         // =========================================================================
-        // 3. POOL DE TEXTURAS ASINCRONO EN VRAM
+        // 3. GESTION DE MEMORIA DE VIDEO (EVITA LLENAR LOS 6GB A LOS 25 MINUTOS)
         // =========================================================================
         mat_async_shader_load                "1"
         r_texture_nonstreaming_load          "0"
-        r_texture_pool_size                  "2048"
-        r_texture_pool_reduce_rate           "16"
+        r_texture_pool_size                  "1536"
+        r_texture_pool_reduce_rate           "64"
         r_texture_budget_dynamic             "1"
-        r_texture_budget_threshold           "0.9"
-        r_texture_budget_update_period       "2.0"
+        r_texture_budget_threshold           "0.8"
+        r_texture_budget_update_period       "1.0"
         r_texture_stream_mip_bias            "3"
         r_texture_lod_scale                  "4"
         r_fallback_texture_lod_scale         "4"
         r_texture_stream_max_resolution      "256"
         r_texture_stream_resolution_bias     "0.1"
         r_texturefilteringquality            "0"
-        r_character_decal_resolution         "4"
-        r_character_decal_monitor_render_res "4"
+        r_character_decal_resolution         "1"
+        r_character_decal_monitor_render_res "1"
         r_citadel_fsr_enable_mip_bias        "false"
 
         // =========================================================================
-        // 4. RECORTE DE POLIGONOS Y DISTANCIA + LOTES ESTABLES
+        // 4. RECORTE DE POLIGONOS, DISTANCIA Y LOTES ESTABLES
         // =========================================================================
         sc_screen_size_lod_scale_override       "0.25"
         sc_instanced_mesh_lod_bias              "5"
@@ -718,9 +718,12 @@ GameInfo
         volume_fog_intermediate_textures_hdr                   "false"
 
         // =========================================================================
-        // 6. FISICAS, COLISIONES E IK DESACTIVADOS
+        // 6. ELIMINACION INMEDIATA DE CADAVERES Y ESCOMBROS EN PARTIDA AVANZADA
         // =========================================================================
-        cl_fasttempentcollision                 "5"
+        cl_disable_ragdolls                     "1"
+        cl_ragdoll_limit                        "0"
+        cl_ragdoll_default_scale                "0"
+        cl_fasttempentcollision                 "20"
         cl_impacteffects                        "0"
         cl_phys_enabled                         "true"
         cl_phys_sleep_enable                    "true"
@@ -731,9 +734,6 @@ GameInfo
         phys_agg_world_compounds                "0"
         cl_bone_cache_optimization              "1"
         skeleton_instance_lod_optimization      "true"
-        cl_disable_ragdolls                     "0"
-        cl_ragdoll_limit                        "0"
-        cl_ragdoll_default_scale                "0"
         cloth_sim_on_tick                       "0"
         cloth_filter_transform_stateless        "0"
         enable_boneflex                         "0"
@@ -762,27 +762,27 @@ GameInfo
         animgraph_slowdownonslopes_enabled      "false"
 
         // =========================================================================
-        // 7. INTERFAZ PANORAMA RAPIDA (EVITA FRENAZOS CON EL KILLFEED Y RETRATOS)
+        // 7. LIMPIEZA CONSTANTE DE BASURA EN PANORAMA UI (EVITA FUGA DE MEMORIA)
         // =========================================================================
-        panorama_render_target_cache_max_size           "134217728"
+        v8_maximum_heap_size_mb                         "256"
+        panorama_render_target_cache_max_size           "33554432"
+        panorama_comp_layer_lru_lifetime                "2"
+        panorama_disable_render_target_cache            "0"
+        panorama_skip_composition_layer_content_paint   "1"
         citadel_damage_report_enable                    "0"
         citadel_in_world_item_panel_dpi                 "0"
         citadel_portrait_world_renderer_off             "true"
         citadel_portrait_unit_ag2_enable                "false"
-        citadel_damage_text_lifetime                    "0.5"
-        citadel_damage_text_lifetime_new                "0.4"
+        citadel_damage_text_lifetime                    "0.3"
+        citadel_damage_text_lifetime_new                "0.25"
         citadel_damage_text_batching_window_ability     "1000"
-        panorama_max_fps                                "30"
-        panorama_max_overlay_fps                        "30"
-        fps_max_ui                                      "30"
+        panorama_max_fps                                "25"
+        panorama_max_overlay_fps                        "25"
+        fps_max_ui                                      "25"
         fps_max                                         "0"
         panorama_disable_blur                           "true"
         panorama_allow_transitions                      "false"
         panorama_panel_occlusion                        "true"
-        panorama_disable_render_target_cache            "0"
-        panorama_skip_composition_layer_content_paint   "1"
-        panorama_comp_layer_lru_lifetime                "8"
-        v8_maximum_heap_size_mb                         "1024"
         r_dashboard_render_quality                      "0"
         r_citadel_enable_pano_world_blur                "false"
         citadel_unit_status_old_update_rate             "10"
@@ -800,12 +800,13 @@ GameInfo
         cc_captiontrace                                 "0"
 
         // =========================================================================
-        // 8. PARTICULAS EN GPU (OPTIMIZADO PARA FUEGO DE INFERNUS Y NURSE HARROW)
+        // 8. RECICLADO RAPIDO DE PARTICULAS PARA COMBATES DE MINUTO 30+
         // =========================================================================
-        r_particle_max_size_cull                 "200"
+        r_particle_max_size_cull                 "250"
+        r_particle_max_draw_distance             "3500"
         r_late_particle_job_sync                 "1"
         r_citadel_disable_particle_lights        "true"
-        r_particle_mixed_resolution_viewstart    "16"
+        r_particle_mixed_resolution_viewstart    "8"
         particle_cluster_use_collision_hulls     "false"
         particle_cluster_nodraw                  "1"
         cl_aggregate_particles                   "true"
@@ -816,26 +817,29 @@ GameInfo
         r_limit_particle_job_duration            "true"
         r_particle_explicit_fetch                "false"
         r_particle_model_per_thread_count        "64"
-        r_particle_min_timestep                  "0.005"
-        r_particle_max_texture_layers            "4"
+        r_particle_min_timestep                  "0.008"
+        r_particle_max_texture_layers            "2"
         r_particle_fixedrandomseeds              "true"
         cl_particle_fallback_base                "10"
         cl_particle_fallback_multiplier          "20"
-        cl_particle_sim_fallback_base_multiplier "100"
-        cl_particle_sim_fallback_threshold_ms    "1"
+        cl_particle_sim_fallback_base_multiplier "150"
+        cl_particle_sim_fallback_threshold_ms    "0.8"
         r_citadel_screenspace_particles_full_res "false"
         r_draw_particle_children_with_parents    "0"
         r_physics_particle_op_spawn_scale        "0"
         r_update_particles_on_render_only_frames "true"
-        cl_max_particle_pvs_aabb_edge_length     "50"
+        cl_max_particle_pvs_aabb_edge_length     "45"
 
         // =========================================================================
-        // 9. ARMA OCULTA Y DETALLES SECUNDARIOS APAGADOS
+        // 9. LIMITE DE DECALS (EVITA QUE SE ACUMULEN MILES DE BALAZOS EN EL MAPA)
         // =========================================================================
+        r_decals                                      "16"
+        r_maxmodeldecal                               "0"
+        r_queued_decals                               "0"
+        r_drawdecals                                  "1"
         r_aspectratio                                 "2.5"
         r_drawviewmodel                               "false"
         viewmodel_fov                                 "0"
-        r_drawdecals                                  "1"
         citadel_boss_glow_disabled                    "1"
         citadel_trooper_glow_disabled                 "1"
         citadel_player_outline_enemies                "false"
@@ -871,14 +875,14 @@ GameInfo
         citadel_melee_shake_amplitude                 "0"
         citadel_melee_shake_duration                  "0"
         r_citadel_clip_sphere_min_opacity             "0"
-        r_max_portal_render_targets                   "2"
+        r_max_portal_render_targets                   "0"
         r_monitor_3dskybox                            "0"
         r_skip_precache_validation_check              "true"
         r_strip_invisible_during_sceneobject_update   "1"
         r_pixelvisibility_partial                     "false"
 
         // =========================================================================
-        // 10. IA EN 4 COLAS ASINCRONAS (EVITA CUELLO DE BOTELLA CON BOTS LOCALES)
+        // 10. IA Y SONIDO SIN ACUMULACION DE CANALES EN LATE GAME
         // =========================================================================
         citadel_npc_force_animate_every_tick          "false"
         cl_simulate_dormant_entities                  "false"
@@ -903,7 +907,7 @@ GameInfo
         snd_occlusion_bounces                         "0"
         snd_occlusion_rays                            "0"
         snd_steamaudio_max_occlusion_samples          "8"
-        snd_steamaudio_num_diffuse_samples            "128"
+        snd_steamaudio_num_diffuse_samples            "64"
         snd_steamaudio_reverb_order_rendering         "0"
         snd_steamaudio_reverb_update_rate             "5"
         snd_use_baked_occlusion                       "1"
@@ -915,7 +919,7 @@ GameInfo
         disable_source_soundscape_trace               "1"
         dsp_volume                                    "0"
         update_voices_low_priority                    "true"
-        citadel_enable_vdata_sound_preload            "true"
+        citadel_enable_vdata_sound_preload            "false"
         steam_inputhandler_enabled                    "false"
         cl_joystick_enabled                           "0"
         panorama_joystick_enabled                     "0"
