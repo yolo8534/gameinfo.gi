@@ -532,13 +532,13 @@ GameInfo
     ConVars
     {
         // =========================================================================
-        // 1. TRANSFERENCIA CPU -> GPU POST-NURSE HARROW Y CONTROL DE FRAMETIME
+        // 1. ELIMINAR EL BLOQUEO DEL 40% ENTRE CPU Y GPU (SINCRONIZACION APAGADA)
         // =========================================================================
+        r_frame_sync_enable                                            "false"
+        r_citadel_gpu_culling_two_pass                                 "false"
+        r_citadel_gpu_culling                                          "true"
         r_animatable_mesh_shaders                                      "1"
         r_particle_gpu_implicit_lds_cache                              "1"
-        r_frame_sync_enable                                            "true"
-        r_citadel_gpu_culling                                          "true"
-        r_citadel_gpu_culling_two_pass                                 "true"
         sc_aggregate_gpu_vis_culling                                   "true"
         sc_instanced_mesh_enable                                       "true"
         sc_instanced_mesh_gpu_density_culling                          "true"
@@ -547,15 +547,16 @@ GameInfo
         r_citadel_depth_prepass_dynamic_objects                        "false"
         r_async_compute_fog                                            "true"
         r_vma_defrag_algorithm                                         "0"
-        engine_max_ticks_to_simulate                                   "2"
+        engine_max_ticks_to_simulate                                   "4"
         r_low_latency                                                  "0"
         engine_low_latency_sleep_after_client_tick                     "false"
         engine_accurate_input_processing_delta_time                    "true"
 
         // =========================================================================
-        // 2. REPARTO PARALELO EN LOS 8 HILOS DEL i3-10100F
+        // 2. DESBLOQUEAR LOS 8 HILOS COMPLETOS (THREAD_POOL_OPTION 6 + MODIFIERS)
         // =========================================================================
-        thread_pool_option                                             "4"
+        thread_pool_option                                             "6"
+        cl_modifier_parallel_gather_status_effect_updates              "true"
         animgraph_enable_parallel_op_evaluation                        "1"
         animgraph_enable_parallel_preupdate                            "1"
         animgraph_enable_dirty_netvar_optimization                     "true"
@@ -574,7 +575,7 @@ GameInfo
         net_gather_child_fields_only                                   "1"
 
         // =========================================================================
-        // 3. POOL DE TEXTURAS ASINCRONO EN VRAM (SIN FRENAZOS EN EL HILO PRINCIPAL)
+        // 3. POOL DE TEXTURAS ASINCRONO EN VRAM
         // =========================================================================
         mat_async_shader_load                "1"
         r_texture_nonstreaming_load          "0"
@@ -594,7 +595,7 @@ GameInfo
         r_citadel_fsr_enable_mip_bias        "false"
 
         // =========================================================================
-        // 4. RECORTE EXTREMO DE POLIGONOS Y DISTANCIA + LOTES ESTABLES DE VALVE
+        // 4. RECORTE DE POLIGONOS Y DISTANCIA + LOTES ESTABLES
         // =========================================================================
         sc_screen_size_lod_scale_override       "0.25"
         sc_instanced_mesh_lod_bias              "5"
@@ -619,7 +620,7 @@ GameInfo
         sc_clutter_density_none_size            "1"
 
         // =========================================================================
-        // 5. SOMBRAS, LUCES AMBIENTALES Y NIEBLA 100% DESACTIVADAS
+        // 5. SOMBRAS, LUCES AMBIENTALES Y NIEBLA APAGADAS
         // =========================================================================
         r_shadows                                              "0"
         lb_enable_stationary_lights                            "false"
@@ -761,18 +762,19 @@ GameInfo
         animgraph_slowdownonslopes_enabled      "false"
 
         // =========================================================================
-        // 7. INTERFAZ PANORAMA CON CACHE 4X Y RETRATOS 3D APAGADOS
+        // 7. INTERFAZ PANORAMA RAPIDA (EVITA FRENAZOS CON EL KILLFEED Y RETRATOS)
         // =========================================================================
         panorama_render_target_cache_max_size           "134217728"
+        citadel_damage_report_enable                    "0"
         citadel_in_world_item_panel_dpi                 "0"
         citadel_portrait_world_renderer_off             "true"
         citadel_portrait_unit_ag2_enable                "false"
-        citadel_damage_text_lifetime                    "0.75"
-        citadel_damage_text_lifetime_new                "0.5"
+        citadel_damage_text_lifetime                    "0.5"
+        citadel_damage_text_lifetime_new                "0.4"
         citadel_damage_text_batching_window_ability     "1000"
-        panorama_max_fps                                "20"
-        panorama_max_overlay_fps                        "20"
-        fps_max_ui                                      "20"
+        panorama_max_fps                                "30"
+        panorama_max_overlay_fps                        "30"
+        fps_max_ui                                      "30"
         fps_max                                         "0"
         panorama_disable_blur                           "true"
         panorama_allow_transitions                      "false"
@@ -798,7 +800,7 @@ GameInfo
         cc_captiontrace                                 "0"
 
         // =========================================================================
-        // 8. PARTICULAS: SALTAR CULLING EN CPU (200) + HOTFIX NURSE HARROW
+        // 8. PARTICULAS EN GPU (OPTIMIZADO PARA FUEGO DE INFERNUS Y NURSE HARROW)
         // =========================================================================
         r_particle_max_size_cull                 "200"
         r_late_particle_job_sync                 "1"
@@ -828,7 +830,7 @@ GameInfo
         cl_max_particle_pvs_aabb_edge_length     "50"
 
         // =========================================================================
-        // 9. ARMA OCULTA Y DETALLES COSMETICOS APAGADOS
+        // 9. ARMA OCULTA Y DETALLES SECUNDARIOS APAGADOS
         // =========================================================================
         r_aspectratio                                 "2.5"
         r_drawviewmodel                               "false"
@@ -876,19 +878,19 @@ GameInfo
         r_pixelvisibility_partial                     "false"
 
         // =========================================================================
-        // 10. IA Y SONIDO ASINCRONO EN 2 HILOS
+        // 10. IA EN 4 COLAS ASINCRONAS (EVITA CUELLO DE BOTELLA CON BOTS LOCALES)
         // =========================================================================
         citadel_npc_force_animate_every_tick          "false"
         cl_simulate_dormant_entities                  "false"
-        ai_async_queue_max_jobs                       "1"
+        ai_async_queue_max_jobs                       "4"
         ai_foot_sweep_enable                          "false"
         ai_gather_conditions_async                    "true"
         ai_lod_auto_enabled                           "true"
         ai_strong_optimizations_no_checkstand         "1"
-        ai_think_interval                             "0.4"
-        ai_think_interval_lod_med                     "0.6"
-        ai_think_interval_lod_low                     "1.2"
-        ai_think_interval_lod_very_low                "2.5"
+        ai_think_interval                             "0.5"
+        ai_think_interval_lod_med                     "0.8"
+        ai_think_interval_lod_low                     "1.5"
+        ai_think_interval_lod_very_low                "3.0"
         ai_use_async_ragdoll_fixup                    "true"
         nav_obstruction_async_update                  "true"
         citadel_use_pvs_for_players                   "true"
